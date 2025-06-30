@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{509632C3-9FED-43FB-98C5-E6B593FA7E00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeakTweaks", "src\PeakTweaks\PeakTweaks.csproj", "{DF405E66-8F80-4C30-90E4-68DF013045FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF405E66-8F80-4C30-90E4-68DF013045FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF405E66-8F80-4C30-90E4-68DF013045FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF405E66-8F80-4C30-90E4-68DF013045FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF405E66-8F80-4C30-90E4-68DF013045FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF405E66-8F80-4C30-90E4-68DF013045FB} = {509632C3-9FED-43FB-98C5-E6B593FA7E00}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {92F6D475-68F0-44D6-A1AF-A28F5948E381}
+	EndGlobalSection
+EndGlobal
