@@ -1,31 +1,35 @@
 # PeakTweaks
 
-Describe your project here!
+A handful of tweaks and fixes to make your Quality of Life a little better.
 
-## Template Instructions
+## Current features
 
-You can remove this section after you've set up your project.
+- ### Hunger reduction around the campfire
 
-Next steps:
+  Ever had to wait several minutes for that **one** player to catch up, making your hunger bar fill halfway up even though *they're* the ones who are late?
 
-- Create a copy of the `Config.Build.user.props.template` file and name it `Config.Build.user.props`
-  - This will automate copying your plugin assembly to `BepInEx/plugins/`
-  - Configure the paths to point to your game path and your `BepInEx/plugins/`
-  - Game assembly references should work if the path to the game is valid
-- Search `TODO` in the whole project to see what you should configure or modify
+  Now you can configure your campfire to **reduce, negate, or even regenerate hunger** while you're around it, even while unlit.
+  
+  **Note**: Disabled by default in Config file; works client-side, but everyone is encouraged to agree on the same settings, of course :)
 
-### Thunderstore Packaging
+- ### Tweak maximum voice volume
 
-This template comes with Thunderstore packaging built-in, using [TCLI](<https://github.com/thunderstore-io/thunderstore-cli>).
+  Is 200% volume not enough for your friend's super quiet microphone?
+  
+  You can change the maximum voice volume to whatever you want now.
 
-You can build Thunderstore packages by running:
+  Careful with the numbers, things can get loud quickly. But loud = funny!
 
-```sh
-dotnet build -c Release -target:PackTS -v d
-```
+- ### Fix joining with a Banana Peel in the map
 
-> [!NOTE]  
-> You can learn about different build options with `dotnet build --help`.  
-> `-c` is short for `--configuration` and `-v d` is `--verbosity detailed`.
+  If you tried to join an ongoing expedition with a banana peel anywhere in the map,
+  your game would get hard-locked.
 
-The built package will be found at `artifacts/thunderstore/`.
+  Joining mid-expedition is still ill-advised due to many other bugs, but at least you won't need to Alt-F4 now.
+
+## Possibly Future Features
+
+- Geysers acting as a heat source
+- A kick button; or something else to deal with AFK players.
+- Ablity to boost your own microphone's volume
+- A bunch of other ideas I had have already been covered by other mods ¯\\\_(ツ)_/¯

@@ -6,7 +6,7 @@
     <!-- This is the GUID of your mod. Example: com.github.PEAKModding.BepInExTemplate -->
     <AssemblyName>lm2124.peaktweaks</AssemblyName>
     <!-- This is the display name of your mod. Example: BepInEx Template -->
-    <AssemblyTitle>PeakTweaks</AssemblyTitle>
+    <AssemblyTitle>Peak Tweaks</AssemblyTitle>
     <!-- This is the version number of your mod. -->
     <Version>0.1.0</Version>
   </PropertyGroup>

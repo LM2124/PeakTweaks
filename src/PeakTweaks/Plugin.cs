@@ -1,6 +1,8 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
 
+using HarmonyLib;
+
 namespace PeakTweaks;
 
 // Here are some basic resources on code style and naming conventions to help
@@ -13,12 +15,11 @@ namespace PeakTweaks;
 // NuGet package, and it will generate the BepInPlugin attribute for you!
 // For more info, see https://github.com/Hamunii/BepInEx.AutoPlugin
 [BepInAutoPlugin]
-public partial class Plugin : BaseUnityPlugin
-{
+public partial class Plugin : BaseUnityPlugin {
     internal static ManualLogSource Log { get; private set; } = null!;
+    internal static Harmony harmony = null!;
 
-    private void Awake()
-    {
+    private void Awake() {
         // BepInEx gives us a logger which we can use to log information.
         // See https://lethal.wiki/dev/fundamentals/logging
         Log = Logger;
@@ -28,8 +29,14 @@ public partial class Plugin : BaseUnityPlugin
 
         // We can apply our hooks here.
         // See https://lethal.wiki/dev/fundamentals/patching-code
+        harmony = new Harmony(Name);
+        int amt = PatchLoader.ApplyPatches(harmony, Config);
 
-        // Log our awake here so we can see it in LogOutput.log file
-        Log.LogInfo($"Plugin {Name} is loaded!");
+        Log.LogInfo($"{Name} has initialized with {amt} patches!");
+    }
+
+    private void OnDestroy() {
+        Log.LogInfo($"Cleaning up patches");
+        PatchLoader.ClearPatches(harmony);
     }
 }
