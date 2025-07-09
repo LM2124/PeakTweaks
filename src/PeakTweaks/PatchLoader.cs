@@ -32,8 +32,11 @@ public static class PatchLoader {
         Plugin.Log.LogDebug($"Found {modPatchTypes.Count} Patches");
 
         foreach (var patchClass in modPatchTypes) {
-            ModPatch? patch = Activator.CreateInstance(patchClass) as ModPatch;
-            if (patch == null || !patch.ShouldLoad(config)) {
+            if (Activator.CreateInstance(patchClass) is not ModPatch patch) {
+                continue;
+            }
+
+            if (!patch.ShouldLoad(config)) {
                 continue;
             }
 

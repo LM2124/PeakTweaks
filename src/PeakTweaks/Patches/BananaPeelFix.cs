@@ -7,10 +7,10 @@ namespace PeakTweaks.Patches;
 public class BananaPeelFix : ModPatch {
     public override bool ShouldLoad(ConfigFile config) {
         ConfigEntry<bool> enabled = config.Bind(
-            "Client",
-            "Banana Peel Join Fix",
-            true,
-            "Fix a bug that made it impossible to join a lobby if a banana peel existed anywhere.");
+            section: "Client",
+            key: "Banana Peel Join Fix",
+            defaultValue: true,
+            description: "Fix a bug that made it impossible to join a lobby if a banana peel existed anywhere.");
         return enabled.Value;
     }
 

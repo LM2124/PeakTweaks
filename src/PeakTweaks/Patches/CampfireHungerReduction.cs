@@ -14,26 +14,26 @@ public class CampfireHungerReduction : ModPatch {
 
     public override bool ShouldLoad(ConfigFile config) {
         bool enabled = config.Bind(
-            "Everyone",
-            "Campfire Hunger Reduction",
-            false,
-            "Reduce hunger gain while close to a campfire." +
+            section: "Everyone",
+            key: "Campfire Hunger Reduction",
+            defaultValue: false,
+            description: "Reduce hunger gain while close to a campfire." +
             "\nUseful to avoid starvation while waiting for that *one guy* to catch up. It's always him." +
             "\n*Might* work when not everyone has this, but might also cause desyncs. I dunno."
             ).Value;
 
         CampfireHungerMultiplier = config.Bind(
-            "Everyone",
-            "Campfire Hunger Reduction Multiplier",
-            0.5f,
-            "Multiply hunger gain near campfires by this amount." +
+            section: "Everyone",
+            key: "Campfire Hunger Reduction Multiplier",
+            defaultValue: 0.5f,
+            description: "Multiply hunger gain near campfires by this amount." +
             "\nCan be 0 to pause hunger entirely, or a negative value like -1 to regenerate hunger near the campfire."
             ).Value;
         CampfireHungerReductionRange = config.Bind(
-            "Everyone",
-            "Campfire Hunger Reduction Range",
-            15f,
-            "Range of the hunger reduction effect, in in-game meters."
+            section: "Everyone",
+            key: "Campfire Hunger Reduction Range",
+            defaultValue: 15f,
+            description: "Range of the hunger reduction effect, in in-game meters."
             ).Value / CharacterStats.unitsToMeters;
 
         return enabled && CampfireHungerMultiplier != 1 && CampfireHungerReductionRange > 0;
@@ -41,8 +41,7 @@ public class CampfireHungerReduction : ModPatch {
 
     [HarmonyPatch(typeof(Campfire), nameof(Campfire.Awake))]
     [HarmonyPrefix]
-    public static void Campfire_Awake(Campfire __instance) {
-        // TODO: Replace existing trackers when hot-reloading
+    private static void Campfire_Awake(Campfire __instance) {
         CampfireProximityTracker.CreateAndAttachToCampfire(__instance, CampfireHungerReductionRange);
     }
 
@@ -75,14 +74,26 @@ public class CampfireHungerReduction : ModPatch {
         }
         return true;
     }
+
+    // For hot-reloading
+    public override void Init() {
+        // Won't find anything at first Init, but might after a hot-reload.
+        Object.FindObjectsByType<Campfire>(FindObjectsSortMode.None)
+            .Do(c => CampfireProximityTracker.CreateAndAttachToCampfire(c, CampfireHungerReductionRange));
+    }
+    public override void DeInit() {
+        Object.FindObjectsByType<CampfireProximityTracker>(FindObjectsSortMode.None)
+            .Do(Object.Destroy);
+    }
 }
 
 public class CampfireProximityTracker : MonoBehaviour {
     public static HashSet<Character> charactersNearCampfires = [];
+
     public static void CreateAndAttachToCampfire(Campfire campfire, float range) {
         Plugin.Log.LogDebug($"Attaching Proximity Tracker to {campfire.name}");
-        GameObject triggerZone = new($"({Plugin.Name}) CampfireHungerProximityTrigger");
-        CampfireProximityTracker tracker = triggerZone.AddComponent<CampfireProximityTracker>();
+
+        CampfireProximityTracker tracker = campfire.gameObject.AddComponent<CampfireProximityTracker>();
         tracker.Initialize(campfire, range);
     }
 

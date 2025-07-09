@@ -20,6 +20,12 @@ A handful of tweaks and fixes to make your Quality of Life a little better.
 
   Careful with the numbers, things can get loud quickly. But loud = funny!
 
+- ### Boost microphone volume
+
+  You can change your own microphone's volume.
+
+  Note: There is perceived loudness compensation; so a value of 200% should truly sound 2x louder
+
 - ### Fix joining with a Banana Peel in the map
 
   If you tried to join an ongoing expedition with a banana peel anywhere in the map,
@@ -29,7 +35,5 @@ A handful of tweaks and fixes to make your Quality of Life a little better.
 
 ## Possibly Future Features
 
-- Geysers acting as a heat source
 - A kick button; or something else to deal with AFK players.
-- Ablity to boost your own microphone's volume
 - A bunch of other ideas I had have already been covered by other mods ¯\\\_(ツ)_/¯
