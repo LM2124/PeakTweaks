@@ -10,7 +10,15 @@ A handful of tweaks and fixes to make your Quality of Life a little better.
 
   Now you can configure your campfire to **reduce, negate, or even regenerate hunger** while you're around it, even while unlit.
   
-  **Note**: Disabled by default in Config file; works client-side, but everyone is encouraged to agree on the same settings, of course :)
+  **Note**: Disabled by default in Config file; actually operates client-side, but everyone is encouraged to agree on the same settings, of course :)
+
+- ### Tweak Jungle Thorn damage
+
+  Think they deal too much damage? Now you can change it.
+
+  You can also change the amount of knockback they deal on contact.
+
+  **Note**: Disabled by default too; see previous feature.
 
 - ### Tweak maximum voice volume
 
@@ -35,5 +43,6 @@ A handful of tweaks and fixes to make your Quality of Life a little better.
 
 ## Possibly Future Features
 
+- Add config synchronization between host and players so they don't need to manually match configs (This is likely beyond my current abilities for now)
 - A kick button; or something else to deal with AFK players.
 - A bunch of other ideas I had have already been covered by other mods ¯\\\_(ツ)_/¯

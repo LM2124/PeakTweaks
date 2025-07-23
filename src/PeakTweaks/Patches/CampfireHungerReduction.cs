@@ -82,6 +82,7 @@ public class CampfireHungerReduction : ModPatch {
             .Do(c => CampfireProximityTracker.CreateAndAttachToCampfire(c, CampfireHungerReductionRange));
     }
     public override void DeInit() {
+        CampfireProximityTracker.charactersNearCampfires.Clear();
         Object.FindObjectsByType<CampfireProximityTracker>(FindObjectsSortMode.None)
             .Do(Object.Destroy);
     }
@@ -90,18 +91,17 @@ public class CampfireHungerReduction : ModPatch {
 public class CampfireProximityTracker : MonoBehaviour {
     public static HashSet<Character> charactersNearCampfires = [];
 
+    private SphereCollider? sphere;
+
     public static void CreateAndAttachToCampfire(Campfire campfire, float range) {
         Plugin.Log.LogDebug($"Attaching Proximity Tracker to {campfire.name}");
 
         CampfireProximityTracker tracker = campfire.gameObject.AddComponent<CampfireProximityTracker>();
-        tracker.Initialize(campfire, range);
+        tracker.Initialize(range);
     }
 
-    public void Initialize(Campfire campfire, float range) {
-        transform.SetParent(campfire.transform);
-        transform.localPosition = Vector3.zero;
-
-        SphereCollider sphere = gameObject.AddComponent<SphereCollider>();
+    public void Initialize(float range) {
+        sphere = gameObject.AddComponent<SphereCollider>();
         sphere.isTrigger = true;
         sphere.radius = range;
     }
@@ -117,6 +117,30 @@ public class CampfireProximityTracker : MonoBehaviour {
         Character? character = other.GetComponentInParent<Character>();
         if (character != null && charactersNearCampfires.Remove(character)) {
             Plugin.Log.LogDebug($"Character exited campfire radius: {character.name}");
+        }
+    }
+
+    private void OnDisable() {
+        // Covering a possible edge case where the game ends while someone is
+        // still near a campfire; they'd still be in the list for the next game
+        // (They'd be reset if they entered the radius of even the airplane campfire, but a chance is a chance)
+
+        if (sphere == null) {
+            Plugin.Log.LogWarning("CampfireProximityTracker: Where's my SphereCollider??");
+            return;
+        }
+
+        // Unity doesn't emit OnTriggerExit for colliders inside a trigger when it is disabled/deleted
+        foreach (var character in new HashSet<Character>(charactersNearCampfires)) {
+            if (Vector3.Distance(character.Center, sphere.bounds.center) <= sphere.radius) {
+                charactersNearCampfires.Remove(character);
+                Plugin.Log.LogDebug($"Removing {character.name} from charactersNearCampfire");
+            }
+        }
+    }
+    private void OnDestroy() {
+        if (sphere != null) {
+            Object.Destroy(sphere);
         }
     }
 }
