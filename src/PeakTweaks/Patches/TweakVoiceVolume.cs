@@ -34,7 +34,7 @@ public class TweakVoiceVolume : ModPatch {
         // Copy-pasting some lines from decompiled original method
         // (I don't want to bother with a Transpile)
         if (__instance.player != null) {
-            AudioLevels.SetPlayerLevel(__instance.player.ActorNumber, newValue);
+            AudioLevels.SetPlayerLevel(__instance.player.UserId, newValue);
 
 
             // Custom code - Select a sprite based on the new maximum volume value

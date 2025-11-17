@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Fixed TweakVoiceVolume not working after the Roots update.
+
 ## 0.3.0
 
 - Added Jungle Thorn Damage Tweak

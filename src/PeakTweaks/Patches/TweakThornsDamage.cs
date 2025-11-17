@@ -31,8 +31,6 @@ public class TweakThornsDamage : ModPatch {
 
     public override void Init() {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        //Plugin.Log.LogError($"Init-{SceneManager.GetActiveScene().name is not "Title" and not "Airport"}");
-        //Plugin.Log.LogError(SceneManager.GetActiveScene().name);
         // For Hot Reloading
         if (SceneManager.GetActiveScene().name is not "Pretitle" and not "Title" and not "Airport") {
             Execute();
